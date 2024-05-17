@@ -46,13 +46,47 @@ function renderMap(latitude, longitude) {
     L.marker([latitude, longitude], { icon: myIcon }).addTo(map);
 }
 
+let ip = ''
+
+
+window.onload = () => {
+    loadingEL.classList.remove('hidden')
+    fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            console.log('Your Public IP Address:', data.ip);
+            loadingEL.classList.add('hidden')
+            ip = data.ip
+            console.log(ip)
+            const request = new XMLHttpRequest();
+            request.open('GET', `https://geo.ipify.org/api/v2/country,city?apiKey=at_5V6rNekLAwJUP1KH1cv73lIGKfyOA&ipAddress=${ip}`);
+            request.send();
+            request.addEventListener('load', () => {
+                const data = JSON.parse(request.response);
+                ipAddressEl.textContent = data.ip;
+                locationEl.textContent = `${data.location.city}, ${data.location.country}, ${data.location.postalCode}`;
+                timezoneEl.textContent = `UTC ${data.location.timezone}`;
+                ipsEl.textContent = data.isp;
+            })
+
+
+
+        })
+        .catch(error => {
+            console.error('Error fetching IP:', error);
+        });
+};
+
+
+
+
 formEl.addEventListener('submit', (e) => {
     e.preventDefault();
-    const inputValue = inputEl.value;
+    let inputVal = inputEl.value;
     loadingEL.classList.remove('hidden');
 
     const request = new XMLHttpRequest();
-    request.open('GET', `https://geo.ipify.org/api/v2/country,city?apiKey=at_5V6rNekLAwJUP1KH1cv73lIGKfyOA&ipAddress=${inputValue}`);
+    request.open('GET', `https://geo.ipify.org/api/v2/country,city?apiKey=at_5V6rNekLAwJUP1KH1cv73lIGKfyOA&ipAddress=${inputVal}`);
     request.send();
 
     request.addEventListener('load', () => {
@@ -71,8 +105,11 @@ formEl.addEventListener('submit', (e) => {
             locationEl.textContent = '';
             timezoneEl.textContent = '';
             ipsEl.textContent = '';
-            alert(`You entered an invalid IP Address: ❌ ${inputValue}`);
+            alert(`You entered an invalid IP Address: ❌ ${inputVal}`);
         }
         inputEl.value = '';
     });
 });
+
+
+

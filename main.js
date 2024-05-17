@@ -68,9 +68,6 @@ window.onload = () => {
                 timezoneEl.textContent = `UTC ${data.location.timezone}`;
                 ipsEl.textContent = data.isp;
             })
-
-
-
         })
         .catch(error => {
             console.error('Error fetching IP:', error);

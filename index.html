@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-top">
+        <form class="form">
+          <h1>IP Address Tracker</h1>
+          <div class="input-wrapper">
+            <input
+              required
+              placeholder="Search for any IP address or domain"
+              type="text"
+            />
+            <button>
+              <img src="images/arrow.svg" />
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="info-wrapper">
+        <div class="info-div">
+          <p>IP Address</p>
+          <h2 class="ip-address"></h2>
+        </div>
+        <div class="info-div">
+          <p>Location</p>
+          <h2 class="location"></h2>
+        </div>
+        <div class="info-div">
+          <p>Timezone</p>
+          <h2 class="timezone"></h2>
+        </div>
+        <div class="info-div">
+          <p>ISP</p>
+          <h2 class="ips"></h2>
+        </div>
+      </div>
+      <div id="map"></div>
+    </header>
+
+    <div class="overlay hidden" id="overlay">
+      <div class="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="main.js"></script>
+  </body>
+</html>
